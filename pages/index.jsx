@@ -1,5 +1,5 @@
 import React from "react";
-import { HeroBanner, FooterBanner } from "/components";
+import { HeroBanner, FooterBanner, Product } from "/components";
 import { client } from "/lib/client.js";
 
 const Home = ({ productData, bannerData }) => {
@@ -11,6 +11,11 @@ const Home = ({ productData, bannerData }) => {
         <p className="text-base font-extralight">
           speaker There are many variations passages
         </p>
+      </div>
+      <div className="flex flex-wrap justify-center gap-[15px] mt-5 w-full">
+        {productData?.map((product) => (
+          <Product key={product._id} product={product} />
+        ))}
       </div>
       <FooterBanner footerBanner={bannerData.length && bannerData[0]} />
     </div>
