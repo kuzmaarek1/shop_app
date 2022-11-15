@@ -1,5 +1,5 @@
 import React from "react";
-import { HeroBanner } from "/components";
+import { HeroBanner, FooterBanner } from "/components";
 import { client } from "/lib/client.js";
 
 const Home = ({ productData, bannerData }) => {
@@ -12,6 +12,7 @@ const Home = ({ productData, bannerData }) => {
           speaker There are many variations passages
         </p>
       </div>
+      <FooterBanner footerBanner={bannerData.length && bannerData[0]} />
     </div>
   );
 };
