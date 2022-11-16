@@ -13,9 +13,14 @@ import { urlFor } from "/lib/client";
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart, showCart } =
-    useStateContext();
-  console.log(showCart);
+  const {
+    totalPrice,
+    totalQuantities,
+    cartItems,
+    setShowCart,
+    onRemove,
+    toogleCartItemQuanitity,
+  } = useStateContext();
   return (
     <div
       className="w-[100vw] bg-[rgba(0,0,0,0.5)] fixed right-0 top-0 z-[100] transition-all ease-in-out duration-1000"
@@ -71,7 +76,9 @@ const Cart = () => {
                     <div className="w-[100%] absolute">
                       <p className="flex w-[35%] h-8 relative">
                         <button
-                          //onClick={}
+                          onClick={() => {
+                            toogleCartItemQuanitity(item._id, "dec");
+                          }}
                           className="absolute flex items-center justify-center top-0 left-0 h-full w-1/3 text-base cursor-pointer text-[#f02d34] border-solid border-[gray] border-[1px]"
                         >
                           <AiOutlineMinus />
@@ -80,7 +87,9 @@ const Cart = () => {
                           {item.quantity}
                         </button>
                         <button
-                          //onClick={}
+                          onClick={() => {
+                            toogleCartItemQuanitity(item._id, "inc");
+                          }}
                           className="absolute flex items-center justify-center h-full w-1/3 left-2/3 text-base  cursor-pointer text-[rgb(49,168,49)] border-solid border-[gray] border-[1px]"
                         >
                           <AiOutlinePlus />
@@ -91,6 +100,7 @@ const Cart = () => {
                       <button
                         type="button"
                         className="text-[24px] text-[#f02d34] cursor-pointer bg-transparent border-none"
+                        onClick={() => onRemove(item)}
                       >
                         <TiDeleteOutline />
                       </button>

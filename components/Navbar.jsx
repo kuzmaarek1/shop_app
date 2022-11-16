@@ -6,7 +6,6 @@ import { Cart } from "/components";
 
 const Navbar = () => {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
-  console.log(showCart);
   return (
     <div className="flex justify-between m-[6px_18px] realtive">
       <p className="text-gray-600 text-lg">

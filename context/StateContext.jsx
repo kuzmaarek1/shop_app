@@ -55,6 +55,42 @@ export const StateContext = ({ children }) => {
     });
   };
 
+  const toogleCartItemQuanitity = (id, value) => {
+    const newCartItems = cartItems.filter(({ _id }) => _id !== id);
+    const foudItem = cartItems.find(({ _id }) => _id === id);
+
+    if (value === "inc") {
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foudItem.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+      setCartItems([
+        ...newCartItems,
+        { ...foudItem, quantity: foudItem.quantity + 1 },
+      ]);
+    } else if (value === "dec") {
+      if (foudItem.quantity > 1) {
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foudItem.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+        setCartItems([
+          ...newCartItems,
+          { ...foudItem, quantity: foudItem.quantity - 1 },
+        ]);
+      }
+    }
+  };
+
+  const onRemove = (item) => {
+    const newCartItems = cartItems.filter(({ _id }) => _id !== item._id);
+    const foudItem = cartItems.find(({ _id }) => _id === item._id);
+
+    setTotalPrice(
+      (prevTotalPrice) => prevTotalPrice - foudItem.price * foudItem.quantity
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - foudItem.quantity
+    );
+    setCartItems(newCartItems);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -67,6 +103,8 @@ export const StateContext = ({ children }) => {
         decQty,
         onAdd,
         setShowCart,
+        onRemove,
+        toogleCartItemQuanitity,
       }}
     >
       {children}
