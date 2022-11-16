@@ -1,14 +1,18 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
+import useLocalStorage from "/context/useLocalStorage";
 import { toast } from "react-hot-toast";
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalQuantities, setTotalQuantities] = useState(0);
-  const [qty, setQty] = useState(1);
+  const [showCart, setShowCart] = useLocalStorage("showCart", false);
+  const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
+  const [totalPrice, setTotalPrice] = useLocalStorage("totalPrice", 0);
+  const [totalQuantities, setTotalQuantities] = useLocalStorage(
+    "totalQuantities",
+    0
+  );
+  const [qty, setQty] = useLocalStorage("qty", 1);
 
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
@@ -27,12 +31,16 @@ export const StateContext = ({ children }) => {
             ...cartProduct,
             quantity: cartProduct.quantity + quantity,
           };
+        else {
+          return { ...cartProduct };
+        }
       });
       setCartItems(updatedCartItems);
     } else {
       product.quantity = quantity;
       setCartItems([...cartItems, { ...product }]);
     }
+    setQty(1);
     toast.success(`${quantity} ${product.name} added to cart.`);
   };
 

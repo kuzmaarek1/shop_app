@@ -13,8 +13,9 @@ import { urlFor } from "/lib/client";
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart } =
+  const { totalPrice, totalQuantities, cartItems, setShowCart, showCart } =
     useStateContext();
+  console.log(showCart);
   return (
     <div
       className="w-[100vw] bg-[rgba(0,0,0,0.5)] fixed right-0 top-0 z-[100] transition-all ease-in-out duration-1000"
