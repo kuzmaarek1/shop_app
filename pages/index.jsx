@@ -9,7 +9,7 @@ const Home = ({ productData, bannerData }) => {
       <div className="text-center m-[40px_0px] text-[#324d67]">
         <h2 className="text-[40px] font-extrabold"> Best Seller Products</h2>
         <p className="text-base font-extralight">
-          speaker There are many variations passages
+          Speaker - There are many variations passages
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-[15px] mt-5 w-full">
