@@ -55,7 +55,7 @@ const Cart = () => {
             </Link>
           </div>
         )}
-        <div className="mt-4 overflow-auto max-h-[70vh]">
+        <div className="mt-4 overflow-auto max-h-[70vh] relative">
           {cartItems?.length >= 1 &&
             cartItems.map((item) => (
               <div className="flex w-[100%] gap-[30px] p-5" key={item._id}>
