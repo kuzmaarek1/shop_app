@@ -5,13 +5,16 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { Product } from "/components";
 import { client, urlFor } from "/lib/client";
+import { useStateContext } from "/context/StateContext";
+import { Product } from "/components";
 
 const ProductDetails = ({
   product: { image, name, details, price },
+  product,
   products,
 }) => {
+  const { incQty, decQty, qty, onAdd } = useStateContext();
   return (
     <div>
       <div className="flex gap-10 m-10 mt-[60px] ml-0 color-[#324d67] flex-wrap">
@@ -56,29 +59,27 @@ const ProductDetails = ({
               Quantity:
             </h3>
             <p className="flex w-[25%] h-8  relative">
-              <span
-                onClick={() => console.log("mnus")}
+              <button
+                onClick={decQty}
                 className="absolute flex items-center justify-center top-0 left-0 h-full w-1/3 text-base cursor-pointer text-[#f02d34] border-solid border-[gray] border-[1px]"
               >
                 <AiOutlineMinus />
-              </span>
-              <span
-                onClick={() => console.log("1")}
-                className="absolute flex items-center justify-center h-full w-1/3 left-1/3 top-0 text-base cursor-pointer border-solid border-[gray] border-y-[1px]"
-              >
-                1
-              </span>
-              <span
-                onClick={() => console.log("plus")}
+              </button>
+              <button className="absolute flex items-center justify-center h-full w-1/3 left-1/3 top-0 text-base cursor-pointer border-solid border-[gray] border-y-[1px]">
+                {qty}
+              </button>
+              <button
+                onClick={incQty}
                 className="absolute flex items-center justify-center h-full w-1/3 left-2/3 text-base  cursor-pointer text-[rgb(49,168,49)] border-solid border-[gray] border-[1px]"
               >
                 <AiOutlinePlus />
-              </span>
+              </button>
             </p>
           </div>
           <div className="flex gap-[30px]">
             <button
               type="button"
+              onClick={() => onAdd(product, qty)}
               className="p-[10px_20px] border-[1px] border-solid border-[#f02d34] mt-10 text-lg font-medium bg-[white] text-[#f02d34] cursor-pointer w-[200px] scale-100 transition-transform hover:scale-110"
             >
               Add to Cart
