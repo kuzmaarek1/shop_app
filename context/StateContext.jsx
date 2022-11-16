@@ -1,14 +1,18 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
+import useLocalStorage from "/context/useLocalStorage";
 import { toast } from "react-hot-toast";
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState();
-  const [totalQuantities, setTotalQuantities] = useState();
-  const [qty, setQty] = useState(1);
+  const [showCart, setShowCart] = useLocalStorage("showCart", false);
+  const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
+  const [totalPrice, setTotalPrice] = useLocalStorage("totalPrice", 0);
+  const [totalQuantities, setTotalQuantities] = useLocalStorage(
+    "totalQuantities",
+    0
+  );
+  const [qty, setQty] = useLocalStorage("qty", 1);
 
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
@@ -27,12 +31,16 @@ export const StateContext = ({ children }) => {
             ...cartProduct,
             quantity: cartProduct.quantity + quantity,
           };
+        else {
+          return { ...cartProduct };
+        }
       });
       setCartItems(updatedCartItems);
     } else {
       product.quantity = quantity;
       setCartItems([...cartItems, { ...product }]);
     }
+    setQty(1);
     toast.success(`${quantity} ${product.name} added to cart.`);
   };
 
@@ -47,6 +55,42 @@ export const StateContext = ({ children }) => {
     });
   };
 
+  const toogleCartItemQuanitity = (id, value) => {
+    const newCartItems = cartItems.filter(({ _id }) => _id !== id);
+    const foudItem = cartItems.find(({ _id }) => _id === id);
+
+    if (value === "inc") {
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foudItem.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+      setCartItems([
+        ...newCartItems,
+        { ...foudItem, quantity: foudItem.quantity + 1 },
+      ]);
+    } else if (value === "dec") {
+      if (foudItem.quantity > 1) {
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foudItem.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+        setCartItems([
+          ...newCartItems,
+          { ...foudItem, quantity: foudItem.quantity - 1 },
+        ]);
+      }
+    }
+  };
+
+  const onRemove = (item) => {
+    const newCartItems = cartItems.filter(({ _id }) => _id !== item._id);
+    const foudItem = cartItems.find(({ _id }) => _id === item._id);
+
+    setTotalPrice(
+      (prevTotalPrice) => prevTotalPrice - foudItem.price * foudItem.quantity
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - foudItem.quantity
+    );
+    setCartItems(newCartItems);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -58,6 +102,9 @@ export const StateContext = ({ children }) => {
         incQty,
         decQty,
         onAdd,
+        setShowCart,
+        onRemove,
+        toogleCartItemQuanitity,
       }}
     >
       {children}

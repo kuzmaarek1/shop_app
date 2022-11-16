@@ -4,3 +4,4 @@ export { default as Footer } from "/components/Footer";
 export { default as HeroBanner } from "/components/HeroBanner";
 export { default as FooterBanner } from "/components/FooterBanner";
 export { default as Product } from "/components/Product";
+export { default as Cart } from "/components/Cart";

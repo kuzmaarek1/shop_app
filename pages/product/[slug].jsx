@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AiOutlineMinus,
   AiOutlinePlus,
@@ -14,16 +14,18 @@ const ProductDetails = ({
   product,
   products,
 }) => {
+  const [index, setIndex] = useState(0);
   const { incQty, decQty, qty, onAdd } = useStateContext();
+
   return (
     <div>
       <div className="flex gap-10 m-10 mt-[60px] ml-0 color-[#324d67] flex-wrap">
         <div>
           <div>
             <img
-              src={urlFor(image[0])}
+              src={urlFor(image[index])}
               alt=""
-              className="rounded-2xl bg-[#ebebeb] w-[400px] h-[400px] cursor-pointer duration-300 ease-in-out hover:bg-[#f02d34]"
+              className="rounded-2xl bg-[#ebebeb] w-[400px] h-[400px] cursor-pointer duration-300 ease-in-out"
             />
           </div>
           <div className="flex gap-2.5 m-5">
@@ -32,7 +34,10 @@ const ProductDetails = ({
                 key={i}
                 src={urlFor(item)}
                 alt={`image${i}`}
-                className="rounded-lg bg-[#ebebeb] w-[70px] h-[70px] cursor-pointer"
+                className={`rounded-lg w-[70px] h-[70px] cursor-pointer  hover:bg-[#f02d34] ${
+                  i === index ? "bg-[#f02d34]" : "bg-[#ebebeb]"
+                }`}
+                onMouseEnter={() => setIndex(i)}
               />
             ))}
           </div>
@@ -58,7 +63,7 @@ const ProductDetails = ({
             <h3 className="text-[1.17em] font-bold mt-[1em] mb-[1em] ml-0 mr-0">
               Quantity:
             </h3>
-            <p className="flex w-[25%] h-8  relative">
+            <p className="flex w-[25%] h-8 relative">
               <button
                 onClick={decQty}
                 className="absolute flex items-center justify-center top-0 left-0 h-full w-1/3 text-base cursor-pointer text-[#f02d34] border-solid border-[gray] border-[1px]"
