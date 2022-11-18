@@ -17,32 +17,38 @@ const FooterBanner = ({
   },
 }) => {
   return (
-    <div className="p-[100px_40px] bg-[#f02d34] rounded-[15px] relative w-full h-[400px] leading-[1] text-[white] mt-[120px]">
-      <div className="flex justify-between">
-        <div>
+    <div className="mx-[2.5%] my-[2.5%] w-[95%] leading-[1] text-[white] bg-[#f02d34] rounded-[15px]">
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:grid-rows-1 md:grid-rows-[1fr_0.2fr] grid-rows-[0.5fr_0.5fr_auto] h-full">
+        <div className="flex flex-col justify-center items-center md:items-start">
           <p className="m-[18px]">{discount}</p>
-          <h3 className="ml-[25px] text-[80px] font-black">{largeText1}</h3>
-          <h3 className="ml-[25px] text-[80px] font-black">{largeText2}</h3>
+          <h3 className="md:ml-[25px] md:text-[80px] text-[40px] font-black">
+            {largeText1}
+          </h3>
+          <h3 className="md:ml-[25px] md:text-[80px] text-[40px] f font-black">
+            {largeText2}
+          </h3>
           <p className="m-[18px]">{saleTime}</p>
         </div>
-        <div className="leading-[1.4]">
+        <div className="flex flex-col justify-center items-center md:items-start">
+          <img
+            className="md:h-[400px] md:w-[400px] h[300px] w-[300px]"
+            src={urlFor(image)}
+            alt="image_footer"
+          />
+        </div>
+        <div className="leading-[1.4] flex flex-col justify-center items-center xl:items-start md:col-span-2 col-span-1 xl:col-span-1 row-span-1">
           <p className="p-[12px] text-lg">{smallText}</p>
-          <h3 className="text-6xl font-extrabold">{midText}</h3>
+          <h3 className="md:text-6xl text-[40px] font-extrabold">{midText}</h3>
           <p className="p-[12px] text-lg">{desc}</p>
           <Link href={`/product/${product}`}>
             <button
               type="button"
-              className="p-[8px_16px] bg-white text-[red] border-none mt-4 text-[18px] font-medium cursor-pointer rounded-2xl"
+              className="p-[8px_16px] bg-white text-[red] border-none m-4 text-[18px] font-medium cursor-pointer rounded-2xl"
             >
               {buttonText}
             </button>
           </Link>
         </div>
-        <img
-          className="absolute left-0 right-0 top-0 bottom-0 m-auto"
-          src={urlFor(image)}
-          alt="image_footer"
-        />
       </div>
     </div>
   );

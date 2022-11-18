@@ -7,7 +7,6 @@ import {
   AiOutlineShopping,
 } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
-import toast from "react-hot-toast";
 import { useStateContext } from "/context/StateContext";
 import { urlFor } from "/lib/client";
 
@@ -26,7 +25,7 @@ const Cart = () => {
       className="w-[100vw] bg-[rgba(0,0,0,0.5)] fixed right-0 top-0 z-[100] transition-all ease-in-out duration-1000"
       ref={cartRef}
     >
-      <div className="h-[100vh] w-[415px] bg-white relative p-[40px_10px] mr-0 ml-auto">
+      <div className="h-[100vh] sm:w-[415px] w-[100vw] bg-white relative p-[40px_10px] mr-0 ml-auto">
         <button
           type="button"
           onClick={() => setShowCart(false)}
@@ -55,7 +54,7 @@ const Cart = () => {
             </Link>
           </div>
         )}
-        <div className="mt-4 overflow-auto max-h-[70vh] relative">
+        <div className="mt-4 overflow-y-auto overflow-x-hidden max-h-[70vh] relative">
           {cartItems?.length >= 1 &&
             cartItems.map((item) => (
               <div className="flex w-[100%] gap-[30px] p-5" key={item._id}>

@@ -4,18 +4,20 @@ import { Navbar, Footer } from "/components";
 
 const Layout = ({ children }) => {
   return (
-    <div className="p-2.5">
+    <>
       <Head>
         <title>Shop App</title>
       </Head>
-      <header>
-        <Navbar />
-      </header>
-      <main className="m-auto w-full max-w-[1400px]">{children}</main>
-      <footer>
-        <Footer />
-      </footer>
-    </div>
+      <div className="h-[98.5vh] w-[100vw] grid grid-rows-[0.1fr_auto_0.1fr]">
+        <header>
+          <Navbar />
+        </header>
+        <main className="w-full">{children}</main>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 };
 

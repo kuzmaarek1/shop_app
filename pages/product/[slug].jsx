@@ -19,16 +19,16 @@ const ProductDetails = ({
 
   return (
     <div>
-      <div className="flex gap-10 m-10 mt-[60px] ml-0 color-[#324d67] flex-wrap">
-        <div>
+      <div className="grid lg:grid-cols-[0.5fr_1fr] md:grid-cols-[1fr_1fr] grid-cols- 1 md:grid-rows-1 grid-rows-[0.5fr_auto] mt-10 ml-0 color-[#324d67]">
+        <div className="flex flex-col items-center justify-center">
           <div>
             <img
               src={urlFor(image[index])}
               alt=""
-              className="rounded-2xl bg-[#ebebeb] w-[400px] h-[400px] cursor-pointer duration-300 ease-in-out"
+              className="rounded-2xl bg-[#ebebeb] xl:w-[400px] lg:w-[300px] w-[290px] cursor-pointer duration-300 ease-in-out"
             />
           </div>
-          <div className="flex gap-2.5 m-5">
+          <div className="flex flex-wrap gap-2.5 m-5">
             {image?.map((item, i) => (
               <img
                 key={i}
@@ -42,7 +42,7 @@ const ProductDetails = ({
             ))}
           </div>
         </div>
-        <div className="w-[60%]">
+        <div className="flex flex-col justify-start md:items-start items-center xl:pr-20 md:pr-10 md:pl-0 pr-3 pl-3">
           <h1 className="text-[2em] font-bold m-0">{name}</h1>
           <div className="text-[#f02d34] mt-2.5 flex gap-[5px] items-center">
             <div className="flex">
@@ -55,7 +55,7 @@ const ProductDetails = ({
             <p className="text-[#324d67] mt-0">(55)</p>
           </div>
           <h4 className="mt-2.5 mb-[1.33em] ml-0 mr-0 font-bold">Details:</h4>
-          <p className="mt-2.5">{details}</p>
+          <p className="mt-2.5 m-0">{details}</p>
           <p className="mt-[30px] font-bold text-[26px] text-[#f02d34] ">
             ${price}
           </p>
@@ -63,19 +63,19 @@ const ProductDetails = ({
             <h3 className="text-[1.17em] font-bold mt-[1em] mb-[1em] ml-0 mr-0">
               Quantity:
             </h3>
-            <p className="flex w-[25%] h-8 relative">
+            <p className="grid grid-cols-3 md:w-[10vw] sm:w-[20vw] w-[30vw]">
               <button
                 onClick={decQty}
-                className="absolute flex items-center justify-center top-0 left-0 h-full w-1/3 text-base cursor-pointer text-[#f02d34] border-solid border-[gray] border-[1px]"
+                className="flex items-center justify-center top-0 left-0 h-full text-base cursor-pointer text-[#f02d34] border-solid border-[gray] border-[1px]"
               >
                 <AiOutlineMinus />
               </button>
-              <button className="absolute flex items-center justify-center h-full w-1/3 left-1/3 top-0 text-base cursor-pointer border-solid border-[gray] border-y-[1px]">
+              <button className=" flex items-center justify-center h-full text-base cursor-pointer border-solid border-[gray] border-y-[1px]">
                 {qty}
               </button>
               <button
                 onClick={incQty}
-                className="absolute flex items-center justify-center h-full w-1/3 left-2/3 text-base  cursor-pointer text-[rgb(49,168,49)] border-solid border-[gray] border-[1px]"
+                className=" flex items-center justify-center h-full text-base cursor-pointer text-[rgb(49,168,49)] border-solid border-[gray] border-[1px]"
               >
                 <AiOutlinePlus />
               </button>

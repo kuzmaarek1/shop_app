@@ -7,7 +7,7 @@ import { Cart } from "/components";
 const Navbar = () => {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
   return (
-    <div className="flex justify-between m-[6px_18px] realtive">
+    <div className="p-2.5 flex justify-between m-[6px_18px] realtive">
       <p className="text-gray-600 text-lg">
         <Link href="/">JSM Headphones</Link>
       </p>
