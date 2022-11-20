@@ -10,6 +10,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import toast from "react-hot-toast";
 import { useStateContext } from "/context/StateContext";
 import { urlFor } from "/lib/client";
+import getStripe from "/lib/getStripe";
 
 const Cart = () => {
   const cartRef = useRef();
@@ -21,12 +22,33 @@ const Cart = () => {
     onRemove,
     toogleCartItemQuanitity,
   } = useStateContext();
+
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "aplication/json",
+      },
+      body: [JSON.stringify(cartItems)],
+    });
+
+    if (response.statusCode === 500) return;
+
+    const data = await response.json();
+
+    toast.loading("Redirecting...");
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  };
+
   return (
     <div
       className="w-[100vw] bg-[rgba(0,0,0,0.5)] fixed right-0 top-0 z-[100] transition-all ease-in-out duration-1000"
       ref={cartRef}
     >
-      <div className="h-[100vh] w-[415px] bg-white relative p-[40px_10px] mr-0 ml-auto">
+      <div className="grid grid-rows-[0.1fr_1fr_0.1fr] h-[100vh] sm:w-[400px] w-[100vw] bg-white relative p-[40px_10px] mr-0 ml-auto">
         <button
           type="button"
           onClick={() => setShowCart(false)}
@@ -39,7 +61,7 @@ const Cart = () => {
           </span>
         </button>
         {cartItems?.length < 1 && (
-          <div className="m-10 text-center flex flex-col items-center">
+          <div className="m-10 text-center flex flex-col items-center row-span-3 justify-center">
             <AiOutlineShopping size={150} />
             <h3 className="text-[20px] font-semibold">
               Your shopping bag is empty
@@ -55,7 +77,7 @@ const Cart = () => {
             </Link>
           </div>
         )}
-        <div className="mt-4 overflow-auto max-h-[70vh] relative">
+        <div className="mt-4 overflow-y-auto overflow-x-hidden relative">
           {cartItems?.length >= 1 &&
             cartItems.map((item) => (
               <div className="flex w-[100%] gap-[30px] p-5" key={item._id}>
@@ -65,7 +87,7 @@ const Cart = () => {
                 />
                 <div>
                   <div className="flex w-[120%] text-[#324d67] mb-[30px]">
-                    <h5 className="absolute font-bold text-[16px]">
+                    <h5 className="absolute font-bold sm:text-[16px] text-[12px]">
                       {item.name}
                     </h5>
                     <h4 className="absolute right-6 font-bold text-[12px]">
@@ -111,15 +133,18 @@ const Cart = () => {
             ))}
         </div>
         {cartItems.length >= 1 && (
-          <div className="absolute bottom-[12px] right-[5px] w-full p-[30px_65px]">
-            <div className="flex justify-between">
-              <h3 className="font-bold text-[22px]">Subtotal</h3>
-              <h3 className="font-bold text-[22px]">${totalPrice}</h3>
+          <div className="bottom-[12px] right-[5px] w-full">
+            <div className="flex px-4 justify-between">
+              <h3 className="font-bold sm:text-[22px] text-[16px]">Subtotal</h3>
+              <h3 className="font-bold sm:text-[22px] text-[16x]">
+                ${totalPrice}
+              </h3>
             </div>
-            <div className="w-[300px] m-auto">
+            <div className="sm:w-[300px] w-[250px] m-auto">
               <button
                 type="button"
-                className="w-full max-w-[400px] p-[10px_12px] rounded-2xl border-none text-[20px] mt-2.5 uppercase bg-[#f02d34] text-[#fff] cursor-pointer scale-100 transition-transform hover:scale-110"
+                className="w-full max-w-[400px] sm:p-[10px_12px] p-[5px_5px] rounded-2xl border-none text-[20px] mt-2.5 uppercase bg-[#f02d34] text-[#fff] cursor-pointer scale-100 transition-transform hover:scale-110"
+                onClick={handleCheckout}
               >
                 Pay with Stripe
               </button>
