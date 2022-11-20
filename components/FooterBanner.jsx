@@ -31,7 +31,7 @@ const FooterBanner = ({
         </div>
         <div className="flex flex-col justify-center items-center md:items-start">
           <img
-            className="md:h-[400px] md:w-[400px] h[300px] w-[300px]"
+            className="md:h-[400px] md:w-[400px] h[300px] w-[300px] object-contain"
             src={urlFor(image)}
             alt="image_footer"
           />

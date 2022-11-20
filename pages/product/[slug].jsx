@@ -30,7 +30,7 @@ const ProductDetails = ({
               <img
                 src={urlFor(image[index])}
                 alt=""
-                className="rounded-2xl bg-[#ebebeb] xl:w-[400px] lg:w-[300px] w-[290px] cursor-pointer duration-300 ease-in-out"
+                className="rounded-2xl bg-[#ebebeb] xl:w-[400px] lg:w-[300px] w-[290px] cursor-pointer duration-300 ease-in-out object-contain"
               />
             </div>
             <div className="flex flex-wrap gap-2.5 m-5">
@@ -39,8 +39,10 @@ const ProductDetails = ({
                   key={i}
                   src={urlFor(item)}
                   alt={`image${i}`}
-                  className={`rounded-lg w-[70px] h-[70px] cursor-pointer  hover:bg-[#f02d34] ${
-                    i === index ? "bg-[#f02d34]" : "bg-[#ebebeb]"
+                  className={`rounded-lg w-[70px] h-[70px] cursor-pointer  hover:bg-[#f02d34] hover:border-[2px] hover:border-solid hover:border-[#f02d34] object-cover ${
+                    i === index
+                      ? "bg-[#f02d34] border-[2px] border-solid border-[#f02d34]"
+                      : "bg-[#ebebeb]"
                   }`}
                   onMouseEnter={() => setIndex(i)}
                 />
