@@ -22,7 +22,7 @@ const HeroBanner = ({
           {largeText1}
         </h1>
         <Link href={`/product/${product}`}>
-          <button className=" rounded-2xl p-[10px_16px] bg-[#f02d34] text-white border-none sm:mt-10 mt-5 text-lg font-medium cursor-pointer z-[10000_!important]">
+          <button className=" rounded-2xl p-[10px_16px] bg-[#f02d34] text-white border-none sm:mt-10 mt-5 text-lg font-medium cursor-pointer z-[10000_!important] scale-100 transition-transform hover:scale-110">
             {buttonText}
           </button>
         </Link>

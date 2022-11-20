@@ -43,7 +43,7 @@ const FooterBanner = ({
           <Link href={`/product/${product}`}>
             <button
               type="button"
-              className="p-[8px_16px] bg-white text-[red] border-none m-4 text-[18px] font-medium cursor-pointer rounded-2xl"
+              className="p-[8px_16px] bg-white text-[red] border-none m-4 text-[18px] font-medium cursor-pointer rounded-2xl scale-100 transition-transform hover:scale-110"
             >
               {buttonText}
             </button>

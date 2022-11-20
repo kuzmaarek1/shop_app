@@ -7,8 +7,10 @@ import {
   AiOutlineShopping,
 } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
+import toast from "react-hot-toast";
 import { useStateContext } from "/context/StateContext";
 import { urlFor } from "/lib/client";
+import getStripe from "/lib/getStripe";
 
 const Cart = () => {
   const cartRef = useRef();
@@ -20,6 +22,27 @@ const Cart = () => {
     onRemove,
     toogleCartItemQuanitity,
   } = useStateContext();
+
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "aplication/json",
+      },
+      body: [JSON.stringify(cartItems)],
+    });
+
+    if (response.statusCode === 500) return;
+
+    const data = await response.json();
+
+    toast.loading("Redirecting...");
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  };
+
   return (
     <div
       className="w-[100vw] bg-[rgba(0,0,0,0.5)] fixed right-0 top-0 z-[100] transition-all ease-in-out duration-1000"
@@ -121,6 +144,7 @@ const Cart = () => {
               <button
                 type="button"
                 className="w-full max-w-[400px] sm:p-[10px_12px] p-[5px_5px] rounded-2xl border-none text-[20px] mt-2.5 uppercase bg-[#f02d34] text-[#fff] cursor-pointer scale-100 transition-transform hover:scale-110"
+                onClick={handleCheckout}
               >
                 Pay with Stripe
               </button>

@@ -15,7 +15,11 @@ const ProductDetails = ({
   products,
 }) => {
   const [index, setIndex] = useState(0);
-  const { incQty, decQty, qty, onAdd } = useStateContext();
+  const { incQty, decQty, qty, onAdd, setShowCart } = useStateContext();
+
+  const handleBuyNow = () => {
+    setShowCart(true);
+  };
 
   return (
     <div className="w-[100vw] h-[100%] grid grid-rows-[1fr_0.3fr]">
@@ -93,6 +97,7 @@ const ProductDetails = ({
               <button
                 type="button"
                 className="md:w-[200px] w-[40vw] p-[10px_20px] bg-[#f02d34] text-[white] border-none mt-[40px] text-[18px] font-medium cursor-pointer scale-100 transition-transform hover:scale-110"
+                onClick={handleBuyNow}
               >
                 Buy Now
               </button>
