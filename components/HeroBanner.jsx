@@ -29,7 +29,7 @@ const HeroBanner = ({
       </div>
       <div className="xl:row-span-3 sm:row-span-1 flex xl:justify-start justify-center xl:ml-[-22em] mt-[-1em] ml-0">
         <img
-          className="xl:w-[450px] xl:h-[450px] lg:w-[300px] lg:h-[300px] w-[325px] h-[325px]"
+          className="xl:w-[450px] xl:h-[450px] lg:w-[300px] lg:h-[300px] w-[325px] h-[325px] object-contain"
           src={urlFor(image)}
           alt="headphones"
         />
